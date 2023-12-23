@@ -14,19 +14,19 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
-    </div>
-    <div class="main-navbar">
-      
-      <a href="#" class="active"><span>Accueil</span></a>
-      <a href="#"><span>Détails de l'évènement</span></a>
-      <a href="#"><span>À propos</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Évènements passés</span></a>
-      <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
+        <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      </div>
+      <div class="main-navbar">
+        
+        <a href="#" class="active"><span>Accueil</span></a>
+        <a href="#"><span>Détails de l'évènement</span></a>
+        <a href="#"><span>À propos</span></a>
+        <a href="#"><span>Contact</span></a>
+        <a href="#"><span>Évènements passés</span></a>
+        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
     </div>
   </div>
     <main>
@@ -56,7 +56,9 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
+            <span id="sucess"></span>
             <form
+              id="resaForm"
               name="reserve"
               action="index.html"
               method="get"
@@ -71,7 +73,9 @@
                   id="first"
                   name="first"
                   minlength="2"
+                  onkeyup="checkName();"
                 /><br>
+                <span id="prenom-error" class="error-message"></span>
               </div>
               <div
                 class="formData">
@@ -81,7 +85,9 @@
                   type="text"
                   id="last"
                   name="last"
+                  onkeyup="checkLastName()"
                 /><br>
+                <span id="nom-error" class="error-message"></span>
               </div>
               <div
                 class="formData">
@@ -91,7 +97,9 @@
                   type="email"
                   id="email"
                   name="email"
+                  onkeyup="checkEmail()"
                 /><br>
+                <span id="email-error" class="error-message"></span>
               </div>
               <div
                 class="formData">
@@ -101,12 +109,15 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
+                  onkeyup="checkBirthdate()"
                 /><br>
+                <span id="birthdate-error" class="error-message"></span>
               </div>
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" onkeyup="checkNbTournois()"><br>
+                <span id="nbtournois-error" class="error-message"></span>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
@@ -117,6 +128,7 @@
                   id="location1"
                   name="location"
                   value="New York"
+                  onkeyup="checkSelect()"
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -177,6 +189,7 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 >
+                <br><span id="select-error" class="error-message"></span>
               </div>
 
               <div
@@ -185,6 +198,7 @@
                   class="checkbox-input"
                   type="checkbox"
                   id="checkbox1"
+                  onkeyup="checkConditions()"
                   checked
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
@@ -192,13 +206,16 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br>
+                <span id="prenom-error" class="prenom-error"></span>
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
+                <span id="conditions-error" class="error-message"></span>
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
               </div>
+
               <input
                 class="btn-submit"
                 type="submit"
