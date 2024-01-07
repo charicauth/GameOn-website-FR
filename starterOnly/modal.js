@@ -47,8 +47,8 @@ function validate() {
 function checkName() {
   var name = document.getElementById("first").value;
 
-  if (name.length == 0) {
-    nameError.innerHTML = "veuillez renseigner votre prénom";
+  if (name==0) {
+    nameError.innerHTML = "Ce champs est requis";
     return false;
   }
   if (name.length < 2 || name.length > 20) {
@@ -64,11 +64,44 @@ function checkName() {
   return true;
 }
 function checkLastName() {
+  var name = document.getElementById("last").value;
+
+  if (name==0) {
+    lastNameError.innerHTML = "Ce champs est requis";
+    return false;
+  }
+  if (name.length < 2 || name.length > 20) {
+    lastNameError.innerHTML = "votre nom doit compris entre 2 et 20 caracteres";
+    return false;
+  }
+  if (!name.match(/^[a-zA-Z ]+$/)) {
+    lastNameError.innerHTML = "Votre nom ne doit pas contenir de chiffres ni de caracteres spéciaux";
+    return false;
+  }
+
+  lastNameError.innerHTML = "";
+  return true;
+}
+function checkEmail() {
+  var email = document.getElementById("email").value;
+  var emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!email.match(emailRegEx)) {
+    emailError.innerHTML = "Veuillez entrer un email conforme";
+    return false;
+  }
+  if (email.length == 0) {
+    emailError.innerHTML = "ce chanmps est requis";
+    return false;
+  }
+
+  emailError.innerHTML = "";
+  return true;
+
 
 }
-function checkEmail() {}
+
 function checkBirthdate() {}
 function checkNbTournois() {}
 function checkSelect() {}
 function checkConditions() {}
-
