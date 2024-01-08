@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelectorAll(".close");
+const form = document.getElementById("resaForm");
 
 
 // launch modal event
@@ -20,11 +21,22 @@ closeBtn.forEach((span) => span.addEventListener("click", closeModal));
 
 // launch modal form
 function launchModal() {
+  ValidationMessage.innerHTML = "";
+  form.style.display = "block";
   modalbg.style.display = "block";
 }
 
 // Close modal
 function closeModal () {
+  // Reset error messages
+  nameError.innerHTML = "";
+  lastNameError.innerHTML = "";
+  emailError.innerHTML = "";
+  birthdateError.innerHTML = "";
+  nbTournoisError.innerHTML = "";
+  selectError.innerHTML = "";
+  conditionsError.innerHTML = "";
+  form.reset();
   modalbg.style.display = "none";
 }
 
@@ -37,13 +49,9 @@ var birthdateError = document.getElementById("birthdate-error");
 var nbTournoisError = document.getElementById("nbtournois-error");
 var selectError = document.getElementById("select-error");
 var conditionsError = document.getElementById("conditions-error");
+var ValidationMessage = document.getElementById("sucess");
 
-// Form validation function
-function validate() {
-
-}
-
-// check email
+// Forms checks
 function checkName() {
   var name = document.getElementById("first").value;
 
@@ -84,7 +92,7 @@ function checkLastName() {
 }
 function checkEmail() {
   var email = document.getElementById("email").value;
-  var emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
 
   if (!email.match(emailRegEx)) {
     emailError.innerHTML = "Veuillez entrer un email conforme";
@@ -97,11 +105,97 @@ function checkEmail() {
 
   emailError.innerHTML = "";
   return true;
+}
+function checkBirthdate() {
+  var birthdate = document.getElementById("birthdate").value;
+  var birthdateRegEx = /^(?:19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
+  if (!birthdate.match(birthdateRegEx)) {
+    birthdateError.innerHTML = "Veuillez entrer un email conforme";
+    return false;
+  }
+  if (birthdate.length == 0) {
+    birthdateError.innerHTML = "ce chanmps est requis";
+    return false;
+  }
 
+  birthdateError.innerHTML = "";
+  return true;
+}
+function checkNbTournois() {
+  var nbTournois = document.getElementById("quantity").value;
+  var nbTournoisRegEx = /^[0-9]+$/;
+
+  if (!nbTournois.match(nbTournoisRegEx)) {
+    nbTournoisError.innerHTML = "Veuillez entrer un email conforme";
+    return false;
+  }
+  if (nbTournois.length == 0) {
+    nbTournoisError.innerHTML = "ce chanmps est requis";
+    return false;
+  }
+
+  nbTournoisError.innerHTML = "";
+  return true;
+}
+function checkSelect() {
+  const radios = document.querySelectorAll('#resaForm input[type="radio"][name="location"]');
+  const checkedRadios = Array.from(radios).filter(radio => radio.checked);
+
+  if (checkedRadios.length > 0) {
+    selectError.innerHTML = "";
+    return true;
+  } else {
+    selectError.innerHTML = "Veuillez sélectionner un lieu";
+    return false;
+  }
+}
+function checkConditions() {
+  const checkbox = document.getElementById("checkbox1");
+  
+  if (checkbox.checked) {
+    conditionsError.innerHTML = "";
+    return true;
+
+  } else {
+    conditionsError.innerHTML = "veuillez accepter les conditions d'utilisation";
+    return false;
+  }
 }
 
-function checkBirthdate() {}
-function checkNbTournois() {}
-function checkSelect() {}
-function checkConditions() {}
+// Validation function
+function validate() {
+  // Reset error messages
+  nameError.innerHTML = "";
+  lastNameError.innerHTML = "";
+  emailError.innerHTML = "";
+  birthdateError.innerHTML = "";
+  nbTournoisError.innerHTML = "";
+  selectError.innerHTML = "";
+  conditionsError.innerHTML = "";
+
+  // Run validation functions
+  const isNameValid = checkName();
+  const isLastNameValid = checkLastName();
+  const isEmailValid = checkEmail();
+  const isBirthdateValid = checkBirthdate();
+  const isNbTournoisValid = checkNbTournois();
+  const isSelectValid = checkSelect();
+  const isConditionsValid = checkConditions();
+
+  // Check if any validation failed
+  if (!isNameValid || !isLastNameValid || !isEmailValid || !isBirthdateValid || !isNbTournoisValid || !isSelectValid || !isConditionsValid) {
+    return false;
+  }
+
+  // Form submission is successful
+  form.style.display = "none";
+  ValidationMessage.innerHTML = "Merci ! Votre réservation a été reçue"; // You can customize this message
+  return false;
+}
+
+// Submit prevent
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  validate();
+});
