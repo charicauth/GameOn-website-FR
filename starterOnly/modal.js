@@ -60,7 +60,7 @@ function checkName() {
     return false;
   }
   if (name.length < 2 || name.length > 20) {
-    nameError.innerHTML = "votre prénom doit compris entre 2 et 20 caracteres";
+    nameError.innerHTML = "votre prénom doit être compris entre 2 et 20 caracteres";
     return false;
   }
   if (name.match(/\d/)) {
@@ -79,7 +79,7 @@ function checkLastName() {
     return false;
   }
   if (name.length < 2 || name.length > 20) {
-    lastNameError.innerHTML = "votre nom doit compris entre 2 et 20 caracteres";
+    lastNameError.innerHTML = "votre nom doit être compris entre 2 et 20 caracteres";
     return false;
   }
   if (!name.match(/^[a-zA-Z ]+$/)) {
@@ -95,7 +95,7 @@ function checkEmail() {
   var emailRegEx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
 
   if (!email.match(emailRegEx)) {
-    emailError.innerHTML = "Veuillez entrer un email conforme";
+    emailError.innerHTML = "Veuillez entrer une adresse mail conforme";
     return false;
   }
   if (email.length == 0) {
@@ -111,7 +111,7 @@ function checkBirthdate() {
   var birthdateRegEx = /^(?:19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
   if (!birthdate.match(birthdateRegEx)) {
-    birthdateError.innerHTML = "Veuillez entrer un email conforme";
+    birthdateError.innerHTML = "Veuillez entrer une date de naissance conforme";
     return false;
   }
   if (birthdate.length == 0) {
